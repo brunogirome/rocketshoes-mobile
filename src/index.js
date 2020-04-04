@@ -7,10 +7,12 @@ import './config/reactotronConfig';
 
 import Routes from './routes';
 
+import colors from './styles/colors';
+
 export default function App() {
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#191920" />
+      <StatusBar barStyle="light-content" backgroundColor={colors.dark2} />
       <NavigationContainer>
         <Routes />
       </NavigationContainer>

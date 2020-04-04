@@ -1,12 +1,18 @@
 import React from 'react';
-
 import { Text } from 'react-native';
+
 import { Container } from './styles';
 
-export default function Home() {
+export default function Home({ navigation }) {
+  function handleClick() {
+    navigation.navigate('Cart');
+  }
+
   return (
     <Container>
-      <Text style={{ color: '#fff', fontSize: 32 }}> Hello World :) </Text>
+      <Text onPress={handleClick} style={{ color: '#fff', fontSize: 32 }}>
+        Hello World! :)
+      </Text>
     </Container>
   );
 }
