@@ -14,7 +14,7 @@ import {
   ButtonCartText,
 } from './styles';
 
-import api from '../../service/api';
+import api from '../../services/api';
 
 export default class Home extends Component {
   state = {

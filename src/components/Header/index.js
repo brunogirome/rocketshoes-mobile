@@ -15,12 +15,16 @@ export default function Header({ navigation }) {
     navigation.navigate('Home');
   }
 
+  function handleCartNavigation() {
+    navigation.navigate('Cart');
+  }
+
   return (
     <Container>
       <TouchableOpacity onPress={handleHomeNavigation}>
         <Logo />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleCartNavigation}>
         <CartContainer>
           <Icon name="shopping-basket" color="#FFF" size={24} />
           <CartCounter>
