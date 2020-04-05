@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
   Container,
@@ -35,20 +36,20 @@ export default class Home extends Component {
       <Container>
         <ProductList
           data={products}
-          dataExttractor={(product) => product.id}
+          keyExtractor={(product) => String(product.id)}
           renderItem={({ item }) => (
             <ListItem>
               <ProductImage source={{ uri: item.image }} />
               <Description>{item.title}</Description>
-              <Price>R$ {item.price}</Price>
+              <Price>$ {item.price}</Price>
               <ButtonContainer
                 onPress={() => {
                   const { navigation } = this.props;
-
                   navigation.navigate('Cart');
                 }}
               >
                 <ButtonCartContainer>
+                  <Icon name="add-shopping-cart" color="#FFF" size={20} />
                   <ButtonCartText>3</ButtonCartText>
                 </ButtonCartContainer>
                 <ButtonText>Add to cart</ButtonText>

@@ -15,7 +15,7 @@ export const ProductList = styled.FlatList.attrs({
   horizontal: true,
   showsHorizontalScrollIndicator: false,
 })`
-  max-height: 350px;
+  max-height: 360px;
 `;
 
 export const ListItem = styled.View`
@@ -40,8 +40,7 @@ export const Price = styled.Text`
   font-size: 21px;
   line-height: 25px;
   font-weight: bold;
-  margin-top: auto;
-  margin-bottom: auto;
+  margin: auto 0;
 `;
 
 export const ButtonContainer = styled.TouchableOpacity`
@@ -50,7 +49,6 @@ export const ButtonContainer = styled.TouchableOpacity`
 
   flex-direction: row;
 
-  margin-top: auto;
   border-radius: 4px;
 `;
 
@@ -65,14 +63,19 @@ export const ButtonText = styled.Text`
 `;
 
 export const ButtonCartContainer = styled.View`
-  padding: 12px;
-  background-color: ${darken(0.05, colors.primary)};
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
+
+  padding: 12px;
+  background-color: ${darken(0.05, colors.primary)};
+
+  flex-direction: row;
 `;
 
 export const ButtonCartText = styled.Text`
   color: #fff;
+  font-size: 14px;
+  margin-left: 5px;
 `;
 
 export const ProductImage = styled.Image.attrs({
