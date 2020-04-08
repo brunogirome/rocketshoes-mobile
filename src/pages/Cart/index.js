@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { View, ScrollView } from 'react-native';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import * as CartActions from '../../store/modules/cart/actions';
 
 import {
   Container,
@@ -24,74 +27,74 @@ import {
 
 import colors from '../../styles/colors';
 
-import api from '../../services/api';
+function Cart({ cart }) {
+  return (
+    <Container>
+      <ScrollView>
+        <View style={{ marginBottom: 20 }}>
+          <CartContainer
+            data={cart}
+            keyExtractor={(product) => String(product.id)}
+            renderItem={({ item }) => (
+              <>
+                <View style={{ flexDirection: 'row' }}>
+                  <ItemImage
+                    source={{
+                      uri: item.image,
+                    }}
+                  />
+                  <TextContainer>
+                    <Description>{item.title}</Description>
+                    <Price>$ {item.price}</Price>
+                  </TextContainer>
+                </View>
+                <ValueContainer>
+                  <AmountContainer>
+                    <AmountButtons>
+                      <Icon
+                        name="remove-circle-outline"
+                        size={20}
+                        color={colors.primary}
+                      />
+                    </AmountButtons>
+                    <ItemAmount value="3" />
+                    <AmountButtons>
+                      <Icon
+                        name="add-circle-outline"
+                        size={20}
+                        color={colors.primary}
+                      />
+                    </AmountButtons>
+                  </AmountContainer>
+                  <TotalAmount>$ 1112,05</TotalAmount>
+                </ValueContainer>
+              </>
+            )}
+          />
 
-export default class Cart extends Component {
-  state = {
-    products: [],
-  };
+          <TotalContainer>
+            <TotalLabel>TOTAL</TotalLabel>
+            <TotalPrice>$ 1112,05</TotalPrice>
+          </TotalContainer>
 
-  async componentDidMount() {
-    const response = await api.get('/products');
-    const { data } = response;
-
-    this.setState({ products: data });
-  }
-
-  render() {
-    const { products } = this.state;
-
-    return (
-      <Container>
-        <View>
-          <CartContainer>
-            {/* */}
-            <View style={{ marginBottom: 20 }}>
-              <View style={{ flexDirection: 'row' }}>
-                <ItemImage
-                  source={{
-                    uri:
-                      'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-                  }}
-                />
-                <TextContainer>
-                  <Description>Tênis de Caminhada Leve Confortável</Description>
-                  <Price>$ 1112,05</Price>
-                </TextContainer>
-              </View>
-              <ValueContainer>
-                <AmountContainer>
-                  <AmountButtons>
-                    <Icon
-                      name="remove-circle-outline"
-                      size={20}
-                      color={colors.primary}
-                    />
-                  </AmountButtons>
-                  <ItemAmount value="3" />
-                  <AmountButtons>
-                    <Icon
-                      name="add-circle-outline"
-                      size={20}
-                      color={colors.primary}
-                    />
-                  </AmountButtons>
-                </AmountContainer>
-                <TotalAmount>$ 1112,05</TotalAmount>
-              </ValueContainer>
-            </View>
-            {/* */}
-            <TotalContainer>
-              <TotalLabel>TOTAL</TotalLabel>
-              <TotalPrice>$ 1112,05</TotalPrice>
-            </TotalContainer>
-
-            <CheckoutButton>
-              <CheckoutText>Checkout</CheckoutText>
-            </CheckoutButton>
-          </CartContainer>
+          <CheckoutButton>
+            <CheckoutText>Checkout</CheckoutText>
+          </CheckoutButton>
         </View>
-      </Container>
-    );
-  }
+      </ScrollView>
+    </Container>
+  );
 }
+
+const mapStateToProps = (state) => ({
+  cart: state.cart,
+  total: () =>
+    state.cart.reduce((total, product) => {
+      return total + product.price;
+    }, 0),
+});
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

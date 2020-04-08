@@ -9,7 +9,7 @@ export const Container = styled.View`
   background-color: #191920;
 `;
 
-export const CartContainer = styled.ScrollView`
+export const CartContainer = styled.FlatList`
   padding: 15px;
   border-radius: 4px;
 

@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import api from '../../services/api';
+
+import * as CartActions from '../../store/modules/cart/actions';
 
 import {
   Container,
@@ -14,9 +20,7 @@ import {
   ButtonCartText,
 } from './styles';
 
-import api from '../../services/api';
-
-export default class Home extends Component {
+class Home extends Component {
   state = {
     products: [],
   };
@@ -27,6 +31,14 @@ export default class Home extends Component {
     const { data } = response;
 
     this.setState({ products: data });
+  }
+
+  async handleAddProduct(id) {
+    const { addToCartRequest } = this.props;
+
+    const { data } = await api.get(`/products/${id}`);
+
+    addToCartRequest(data);
   }
 
   render() {
@@ -44,6 +56,7 @@ export default class Home extends Component {
               <Price>$ {item.price}</Price>
               <ButtonContainer
                 onPress={() => {
+                  this.handleAddProduct(item.id);
                   const { navigation } = this.props;
                   navigation.navigate('Cart');
                 }}
@@ -61,3 +74,8 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Home);
