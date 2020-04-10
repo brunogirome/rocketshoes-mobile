@@ -8,7 +8,7 @@ export const Container = styled.View`
 
   padding: 20px;
 
-  background-color: #191920;
+  background-color: ${colors.dark1};
 `;
 
 export const ProductList = styled.FlatList.attrs({
@@ -44,12 +44,13 @@ export const Price = styled.Text`
 `;
 
 export const ButtonContainer = styled.TouchableOpacity`
-  background-color: ${colors.primary};
+  flex-direction: row;
   align-items: center;
 
-  flex-direction: row;
-
+  width: 100%;
   border-radius: 4px;
+
+  background-color: ${colors.primary};
 `;
 
 export const ButtonText = styled.Text`
@@ -63,13 +64,13 @@ export const ButtonText = styled.Text`
 `;
 
 export const ButtonCartContainer = styled.View`
+  flex-direction: row;
+
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
-
   padding: 12px;
-  background-color: ${darken(0.05, colors.primary)};
 
-  flex-direction: row;
+  background-color: ${darken(0.05, colors.primary)};
 `;
 
 export const ButtonCartText = styled.Text`

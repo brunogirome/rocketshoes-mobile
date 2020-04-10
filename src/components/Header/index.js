@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -10,7 +11,7 @@ import {
   CartCounterText,
 } from './styles';
 
-export default function Header({ navigation }) {
+function Header({ navigation, cartSize }) {
   function handleHomeNavigation() {
     navigation.navigate('Home');
   }
@@ -28,10 +29,14 @@ export default function Header({ navigation }) {
         <CartContainer>
           <Icon name="shopping-basket" color="#FFF" size={24} />
           <CartCounter>
-            <CartCounterText>3</CartCounterText>
+            <CartCounterText>{cartSize}</CartCounterText>
           </CartCounter>
         </CartContainer>
       </TouchableOpacity>
     </Container>
   );
 }
+
+export default connect((state) => ({
+  cartSize: state.cart.length,
+}))(Header);

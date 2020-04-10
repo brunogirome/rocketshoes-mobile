@@ -7,6 +7,7 @@ import { StatusBar } from 'react-native';
 import './config/reactotronConfig';
 
 import Routes from './routes';
+import { navigationRef } from './services/navigation';
 
 import colors from './styles/colors';
 
@@ -16,7 +17,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <StatusBar barStyle="light-content" backgroundColor={colors.dark2} />
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Routes />
       </NavigationContainer>
     </Provider>
